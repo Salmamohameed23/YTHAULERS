@@ -2,10 +2,35 @@ import vehicleImage from "../assets/v-page.jpg";
 import batteryIcon from "../assets/v-page.jpg";
 import efficiencyIcon from "../assets/v-page.jpg";
 import rangeIcon from "../assets/v-page.jpg";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
+const categories = [
+  { name: "Electric Vehicles", link: "/Electric" },
+  { name: "Consumer Electronics", link: "/Consumer" },
+  { name: "Energy Storage", link: "/Energy" },
+];
 const Electric = () => {
+    const [activeCategory, setActiveCategory] = useState("Electric Vehicles");
+
   return (
     <div className="ev-page">
+      {/* Horizontal Sub-Navigation */}
+      <nav className="sub-nav">
+        {categories.map((category) => (
+          <Link
+            key={category.name}
+            to={category.link}
+            className={`sub-nav-item ${
+              activeCategory === category.name ? "active" : ""
+            }`}
+            onClick={() => setActiveCategory(category.name)}
+          >
+            {category.name}
+          </Link>
+        ))}
+      </nav>
+      {/* Hero Section */}
       <header className="ev-hero-section">
         <img src={vehicleImage} alt="Electric Vehicle" className="hero-image" />
         <div className="hero-text">
@@ -17,6 +42,7 @@ const Electric = () => {
         </div>
       </header>
 
+      {/* Features Section */}
       <section className="ev-features">
         <div className="feature-card">
           <img src={batteryIcon} alt="Battery Technology" />
